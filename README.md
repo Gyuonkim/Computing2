@@ -1,7 +1,24 @@
 # Cleanup Chaos
 
 A two-player turn-based board game built as a web application.
-MOM and BABY compete on a 5×5 grid — MOM tries to build all the lego castles, BABY tries to collapse them.
+MOM and BABY compete on a 5×5 grid — MOM tries to build all the castles, BABY tries to collapse them.
+
+---
+
+## Running the project
+
+### Play the game
+
+Open `web-app/index.html` in a browser. No build step or server required.
+
+### Run the tests
+
+Requires Node.js 18 or later.
+
+```bash
+cd web-app
+npm test
+```
 
 ---
 
@@ -9,12 +26,27 @@ MOM and BABY compete on a 5×5 grid — MOM tries to build all the lego castles,
 
 ### Players
 
-**| Player |          Goal          |**
-  | MOM    | Build all 5 castles    |
-  | BABY   | Collapse all 5 castles |
+| Player | Starts at | Goal |
+|--------|-----------|------|
+| MOM | Top-left (0, 0) | Build all 5 castles |
+| BABY | Bottom-right (4, 4) | Collapse all 5 castles |
 
-Each player starts with **3 lives**, displayed as hearts (❤️❤️❤️). 
-Losing a round costs one life — so you need to **win 3 rounds** to win overall.
+Each player starts with **3 lives**, displayed as hearts (❤️❤️❤️). Losing a round costs one life. The first player to take all 3 of their opponent's lives wins the match — so you need to **win 3 rounds** to win overall.
+
+### Movement
+
+On your turn, move to any adjacent tile — including diagonals (up to 8 directions, one step at a time). Click a glowing tile or use the arrow keys.
+
+### Tiles
+
+| Tile | Effect |
+|------|--------|
+| Neutral | Safe for both players. MOM turns it Clean; BABY turns it Messy. |
+| Clean | MOM's territory — BABY cannot step here without losing a life. |
+| Messy | BABY's territory — MOM cannot step here without losing a life. |
+| Portal | Permanent centre tile. No effect when stepped on. |
+| Built castle | MOM repaired it. Counts toward MOM's win condition. BABY can collapse it. |
+| Collapsed castle | BABY destroyed it. Counts toward BABY's win condition. MOM can rebuild it. |
 
 ### Winning a round
 
@@ -23,19 +55,4 @@ Losing a round costs one life — so you need to **win 3 rounds** to win overall
 - A player also wins the round if their opponent steps onto a lethal tile.
 
 The losing player loses one life, and a new round begins with a fresh board. Lives carry over between rounds.
-
-### Movement
-
-On your turn, move to any adjacent tile — including diagonals (up to 8 directions, one step at a time). Click a glowing tile or use the arrow keys.
-
-### Tiles
-
-|      Tile       |                             Explanation                                 |
-
- Neutral          : Safe for both players. MOM turns it Clean; BABY turns it Messy. 
- Clean            : MOM's territory — BABY cannot step here without losing a life. 
- Messy            : BABY's territory — MOM cannot step here without losing a life. 
- Portal           : Permanent centre tile. No effect when stepped on. 
- Built castle     : MOM repaired it. Counts toward MOM's win condition. BABY can collapse it. 
- Collapsed castle : BABY destroyed it. Counts toward BABY's win condition. MOM can rebuild it. 
 
