@@ -1,0 +1,771 @@
+/* ==========================================================================
+   default.css – Cleanup Chaos
+   Palette: #B0D3CE (sage) · #ffffff (white) · #484848 (charcoal)
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. RESET
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+    box-sizing:      border-box;
+    margin:          0;
+    padding:         0;
+    image-rendering: pixelated;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. DESIGN TOKENS  — strict 3-colour palette
+   -------------------------------------------------------------------------- */
+
+:root {
+    /* ── Sage  (#B0D3CE and white-tints only) ─────────────────────────── */
+    --sage:          #B0D3CE;   /* primary accent                          */
+    --sage-60:       #CADEDB;   /* 60% sage + 40% white  — subtle bg      */
+    --sage-30:       #E4EFEE;   /* 30% sage + 70% white  — panel tint     */
+    --sage-15:       #F1F7F6;   /* 15% sage + 85% white  — body bg        */
+
+    /* ── White ────────────────────────────────────────────────────────── */
+    --white:         #ffffff;
+    --white-dim:     #E8E8E8;   /* neutral grey dividers / empty bar bg   */
+
+    /* ── Charcoal  (#484848 and opacity-variants only) ────────────────── */
+    --dark:          #484848;   /* primary dark — text, borders           */
+    --dark-60:       #767676;   /* 60% dark — secondary text, labels      */
+    --dark-40:       #909090;   /* 40% dark — muted text                  */
+    --dark-20:       #BABABA;   /* 20% dark — faint dividers              */
+
+    /* ── Semantic aliases ──────────────────────────────────────────────── */
+    --border:        var(--dark);
+    --border-width:  2px;
+    --bg-body:       var(--sage-15);
+    --bg-panel:      var(--white);
+    --bg-titlebar:   var(--dark);
+    --text-main:     var(--dark);
+    --text-muted:    var(--dark-60);
+
+    /* ── Flat pixel shadow (no 3-D) ────────────────────────────────────── */
+    --px-shadow:  none;
+
+    /* ── Spacing ────────────────────────────────────────────────────────── */
+    --gap-inner: 10px;
+
+    /* ── Font ───────────────────────────────────────────────────────────── */
+    --font-pixel: 'Tiny5', monospace;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. SKIP LINK
+   -------------------------------------------------------------------------- */
+
+.skip-link {
+    position:        absolute;
+    top:             -100px;
+    left:            8px;
+    z-index:         10000;
+    background:      var(--dark);
+    color:           var(--sage);
+    font-family:     var(--font-pixel);
+    font-size:       12px;
+    padding:         8px 16px;
+    border:          2px solid var(--sage);
+    text-decoration: none;
+    letter-spacing:  1px;
+    transition:      top 0.1s;
+}
+.skip-link:focus { top: 8px; }
+
+
+/* --------------------------------------------------------------------------
+   4. SCANLINE OVERLAY  (decorative)
+   -------------------------------------------------------------------------- */
+
+.scanlines {
+    pointer-events: none;
+    position:       fixed;
+    inset:          0;
+    z-index:        9999;
+    background:     repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.03) 0px,
+        rgba(0,0,0,0.03) 1px,
+        transparent       1px,
+        transparent       3px
+    );
+}
+
+
+/* --------------------------------------------------------------------------
+   5. BASE
+   -------------------------------------------------------------------------- */
+
+body {
+    font-family:      var(--font-pixel);
+    background-color: var(--sage-15);
+    background-image:
+        url("assets/bg.png"),
+        linear-gradient(180deg, #EFF7F6 0%, #F1F7F6 50%, #E8F3F2 100%);
+    background-size:  cover, cover;
+    color:            var(--text-main);
+    min-height:       100vh;
+}
+
+
+/* --------------------------------------------------------------------------
+   6. LAYOUT
+   -------------------------------------------------------------------------- */
+
+.game-container {
+    width:  1200px;
+    margin: 32px auto 80px;
+}
+
+.main-layout {
+    display:     flex;
+    gap:         16px;
+    align-items: flex-start;
+}
+
+.center-area {
+    flex:            1;
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    gap:             12px;
+}
+
+.bottom-ui {
+    margin-top: 12px;
+    text-align: center;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. TITLE
+   -------------------------------------------------------------------------- */
+
+.game-title {
+    font-family:    var(--font-pixel);
+    font-size:      96px;
+    line-height:    0.9;
+    text-align:     center;
+    margin-bottom:  6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.title-cleanup {
+    display:     block;
+    color:       var(--dark);
+    text-shadow:
+         3px  0   var(--white),
+        -3px  0   var(--white),
+         0    3px var(--white),
+         0   -3px var(--white),
+         3px  3px var(--white),
+        -3px  3px var(--white),
+         3px -3px var(--white),
+        -3px -3px var(--white),
+         0    6px var(--dark-60);
+}
+
+.title-chaos {
+    display:     block;
+    color:       var(--white);
+    text-shadow:
+         3px  0   var(--dark),
+        -3px  0   var(--dark),
+         0    3px var(--dark),
+         0   -3px var(--dark),
+         3px  3px var(--dark),
+        -3px  3px var(--dark),
+         3px -3px var(--dark),
+        -3px -3px var(--dark),
+         0    6px var(--dark-60);
+}
+
+.title-sub {
+    text-align:     center;
+    font-size:      12px;
+    letter-spacing: 4px;
+    color:          var(--dark);
+    margin-bottom:  20px;
+    animation:      blink-text 1.2s steps(1) infinite;
+}
+
+@keyframes blink-text {
+    0%,  49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+
+/* --------------------------------------------------------------------------
+   8. SIDE PANEL
+   -------------------------------------------------------------------------- */
+
+.side-panel {
+    width:          248px;
+    display:        flex;
+    flex-direction: column;
+    gap:            12px;
+}
+
+
+/* --------------------------------------------------------------------------
+   9. PANEL BOX  — flat, no 3-D shadow
+   -------------------------------------------------------------------------- */
+
+.panel-box {
+    background:    var(--bg-panel);
+    border:        var(--border-width) solid var(--border);
+    box-shadow:    none;
+    border-radius: 0;
+    overflow:      hidden;
+}
+
+/* Window title bar */
+.panel-titlebar {
+    display:         flex;
+    align-items:     center;
+    background:      var(--bg-titlebar);
+    padding:         5px 8px;
+    border-bottom:   var(--border-width) solid var(--border);
+}
+
+.panel-title-text {
+    font-family:    var(--font-pixel);
+    font-size:      10px;
+    letter-spacing: 1px;
+    color:          var(--sage);
+    text-transform: uppercase;
+}
+
+/* 상자 우측 상단 점 제거 */
+.panel-dots { display: none; }
+
+/* Inner content padding */
+.panel-box > *:not(.panel-titlebar) { padding: 12px; }
+.panel-box > .panel-titlebar + *    { padding-top: 12px; }
+
+
+/* --------------------------------------------------------------------------
+   10. TURN BOX
+   -------------------------------------------------------------------------- */
+
+.turn-player {
+    font-family:    var(--font-pixel);
+    font-size:      30px;
+    color:          var(--dark);
+    letter-spacing: 3px;
+    padding:        10px 12px !important;
+}
+
+.blink-cursor {
+    display:     inline-block;
+    color:       var(--sage);
+    animation:   blink-text 0.8s steps(1) infinite;
+    margin-left: 2px;
+}
+
+
+/* --------------------------------------------------------------------------
+   11. WARNING BOX
+   -------------------------------------------------------------------------- */
+
+.warning-box {
+    background:   var(--sage-30);
+    border-color: var(--dark);
+    box-shadow:   none;
+}
+
+.warning-titlebar {
+    background:   var(--dark);
+    border-color: var(--dark);
+}
+
+.warning-titlebar .panel-title-text {
+    color:     var(--white);
+    animation: blink-text 1s steps(1) infinite;
+}
+
+.warning-text {
+    font-size:   12px;
+    color:       var(--dark);
+    line-height: 1.8;
+    padding:     10px 12px !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   12. OBJECTIVE BOX
+   -------------------------------------------------------------------------- */
+
+.objective-item {
+    font-size:   11px;
+    line-height: 2;
+    color:       var(--text-muted);
+    display:     flex;
+    align-items: center;
+    gap:         8px;
+    padding:     0 12px;
+}
+
+.objective-item:last-child { padding-bottom: 12px; }
+
+.obj-tag {
+    font-size:      9px;
+    letter-spacing: 1px;
+    padding:        2px 6px;
+    border:         1px solid var(--border);
+    background:     var(--dark);
+    color:          var(--sage);
+    flex-shrink:    0;
+}
+
+
+/* --------------------------------------------------------------------------
+   13. STREAK BOX
+   -------------------------------------------------------------------------- */
+
+.streak-top {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         10px 12px 6px !important;
+}
+
+.streak-character {
+    width:      48px;
+    height:     48px;
+    border:     var(--border-width) solid var(--border);
+    box-shadow: none;
+    background: var(--sage-30);
+    padding:    2px;
+}
+
+.streak-info  { text-align: right; }
+
+.heart-container {
+    font-size:      15px;
+    letter-spacing: 3px;
+}
+
+.streak-number {
+    font-family:    var(--font-pixel);
+    font-size:      24px;
+    color:          var(--dark);
+    letter-spacing: 2px;
+    margin-top:     2px;
+}
+
+.streak-label {
+    font-size:      9px;
+    letter-spacing: 1px;
+    color:          var(--dark-40);
+    text-align:     right;
+    padding:        0 12px 4px !important;
+}
+
+/* ── Progress bar ───────────────────────────────────────────────────────── */
+
+.streak-bar {
+    height:     14px;
+    background: var(--white-dim);
+    border-top: var(--border-width) solid var(--border);
+    overflow:   hidden;
+    padding:    0 !important;   /* panel-box 패딩 override */
+}
+
+/* Fill element */
+.streak-fill {
+    display:    block;
+    height:     100%;
+    width:      0%;
+    background: #B0D3CE;
+    transition: width 0.3s ease;
+}
+
+.mom-fill  { background: #B0D3CE; }
+.baby-fill { background: #B0D3CE; }
+
+
+/* --------------------------------------------------------------------------
+   14. BOARD FRAME
+   -------------------------------------------------------------------------- */
+
+.board-frame {
+    width:      fit-content;
+    border:     var(--border-width) solid var(--border);
+    box-shadow:
+        4px  4px 0   var(--dark-60),
+        8px  8px 0   rgba(72,72,72,0.25);
+    background: var(--dark);
+    overflow:   hidden;
+}
+
+.board-frame-top {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    background:      var(--dark);
+    border-bottom:   var(--border-width) solid var(--border);
+    padding:         6px 12px;
+}
+
+.frame-label {
+    font-family:    var(--font-pixel);
+    font-size:      10px;
+    letter-spacing: 2px;
+    color:          var(--sage);
+}
+
+.frame-moves {
+    font-family:    var(--font-pixel);
+    font-size:      10px;
+    letter-spacing: 1px;
+    color:          var(--dark-20);
+}
+
+.move-counter { color: var(--sage); }
+
+
+/* --------------------------------------------------------------------------
+   15. BOARD GRID  — fixed column width → always square
+   -------------------------------------------------------------------------- */
+
+.board {
+    display:               grid;
+    grid-template-columns: repeat(5, 88px);
+    gap:                   3px;
+    background:            #B0D3CE;   /* gap 색 = #B0D3CE */
+    padding:               10px;
+}
+
+
+/* --------------------------------------------------------------------------
+   16. TILES
+   -------------------------------------------------------------------------- */
+
+.tile {
+    width:               88px;
+    height:              88px;
+    border:              var(--border-width) solid var(--dark-40);
+    border-radius:       0;
+    cursor:              pointer;
+    background-size:     100% 100%;
+    background-repeat:   no-repeat;
+    background-position: center;
+    background-color:    var(--white-dim);
+    position:            relative;
+    /* 부드러운 글로우 transition */
+    transition:          box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.tile.N   { background-image: url("assets/basic.png"); }
+.tile.C   { background-image: url("assets/clean.png"); }
+.tile.M   { background-image: url("assets/messy.png"); }
+.tile.P   { background-image: url("assets/centertile.png"); }
+.tile.O_B { background-image: url("assets/built.png"); }
+.tile.O_C { background-image: url("assets/collapsed.png"); }
+
+/* 비이동 타일 — 원래 색 그대로 유지 (opacity 변경 없음) */
+.tile[aria-disabled="true"] {
+    cursor: default;
+    /* opacity 제거 → 원래 색 유지 */
+}
+
+/* Hover */
+.tile:hover {
+    border-color: rgba(255,255,255,0.9);
+    box-shadow:
+        0 0 10px 3px rgba(255,255,255,0.8),
+        0 0  4px 1px rgba(255,255,255,0.5);
+    z-index: 2;
+}
+
+/* Available move — 흰색 blur 글로우 펄스 */
+.available-move {
+    border-color: rgba(255,255,255,0.85);
+    box-shadow:
+        0 0 14px 5px rgba(255,255,255,0.75),
+        0 0  5px 2px rgba(255,255,255,0.5);
+    z-index:    1;
+    animation:  tile-pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes tile-pulse {
+    0%,100% {
+        box-shadow:
+            0 0 14px 5px rgba(255,255,255,0.75),
+            0 0  5px 2px rgba(255,255,255,0.5);
+    }
+    50% {
+        box-shadow:
+            0 0  5px 2px rgba(255,255,255,0.3),
+            0 0  2px 0px rgba(255,255,255,0.2);
+    }
+}
+
+/* Keyboard focus */
+.tile:focus-visible {
+    outline:        3px solid var(--dark);
+    outline-offset: 2px;
+    z-index:        3;
+}
+
+
+/* --------------------------------------------------------------------------
+   17. CHARACTERS
+   -------------------------------------------------------------------------- */
+
+.character-icon {
+    width:          64px;
+    height:         64px;
+    object-fit:     contain;
+    pointer-events: none;
+    filter:         drop-shadow(2px 2px 0 var(--dark));
+}
+
+/* 액티브 캐릭터 — 흰색 글로우 */
+.active-character {
+    filter:
+        drop-shadow(0 0  6px rgba(255,255,255,1))
+        drop-shadow(0 0 12px rgba(255,255,255,0.7))
+        drop-shadow(2px 2px 0 var(--dark));
+    animation: char-bob 0.45s steps(2) infinite alternate;
+}
+
+@keyframes char-bob {
+    from { transform: translateY(0px); }
+    to   { transform: translateY(-5px); }
+}
+
+
+/* --------------------------------------------------------------------------
+   18. CONTROL GUIDE
+   -------------------------------------------------------------------------- */
+
+.control-guide {
+    background:     var(--dark);
+    border:         var(--border-width) solid var(--border);
+    box-shadow:     none;
+    padding:        8px 18px;
+    font-family:    var(--font-pixel);
+    font-size:      10px;
+    color:          var(--dark-40);
+    letter-spacing: 1px;
+    display:        flex;
+    align-items:    center;
+    gap:            8px;
+}
+
+.key-chip {
+    display:        inline-block;
+    background:     var(--dark-60);
+    border:         1px solid var(--dark-40);
+    padding:        2px 8px;
+    font-size:      10px;
+    color:          var(--sage);
+    letter-spacing: 1px;
+}
+
+
+/* --------------------------------------------------------------------------
+   19. STATUS BAR
+   -------------------------------------------------------------------------- */
+
+.status-bar {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             12px;
+}
+
+.status-dot-active {
+    display: none;
+}
+
+.game-status {
+    font-family:    var(--font-pixel);
+    font-size:      28px;
+    letter-spacing: 3px;
+    min-height:     44px;
+    color:          var(--dark);
+    text-shadow:
+         2px  0   var(--white),
+        -2px  0   var(--white),
+         0    2px var(--white),
+         0   -2px var(--white),
+         3px  3px var(--dark-60);
+}
+
+
+/* --------------------------------------------------------------------------
+   20. GUIDE BOX
+   -------------------------------------------------------------------------- */
+
+.guide-item {
+    display:     flex;
+    align-items: center;
+    gap:         10px;
+    padding:     8px 12px;
+    border-top:  1px solid var(--white-dim);
+}
+
+.guide-item:first-of-type { border-top: none; padding-top: 12px; }
+.guide-item:last-of-type  { padding-bottom: 12px; }
+
+.guide-icon {
+    width:            50px;
+    height:           50px;
+    flex-shrink:      0;
+    border:           var(--border-width) solid var(--border);
+    box-shadow:       none;
+    background:       var(--sage-30);
+    image-rendering:  pixelated;
+}
+
+.guide-name {
+    font-family:    var(--font-pixel);
+    font-size:      13px;
+    letter-spacing: 1px;
+    margin-bottom:  3px;
+}
+
+.guide-desc {
+    font-size:   10px;
+    line-height: 1.7;
+    color:       var(--text-muted);
+}
+
+/* WCAG AA 준수: #484848 on white = 9.7:1  ✓ */
+.clean-text   { color: var(--dark); }
+.messy-text   { color: var(--dark-60); }
+.neutral-text { color: var(--dark-40); }
+
+
+/* --------------------------------------------------------------------------
+   21. GAME OVER OVERLAY
+   -------------------------------------------------------------------------- */
+
+.game-over-overlay {
+    position:         fixed;
+    inset:            0;
+    background-color: rgba(176, 211, 206, 0.85);   /* #B0D3CE 기반 */
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.1) 0px,
+        rgba(255,255,255,0.1) 1px,
+        transparent            1px,
+        transparent            4px
+    );
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+    z-index:         999;
+}
+
+.game-over-content {
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            20px;
+    text-align:     center;
+    background:     var(--white);
+    border:         var(--border-width) solid var(--border);
+    box-shadow:     none;
+    padding:        0 0 40px;
+    min-width:      480px;
+    overflow:       hidden;
+}
+
+.game-over-window-bar {
+    width:           100%;
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    background:      var(--dark);
+    padding:         7px 12px;
+    border-bottom:   var(--border-width) solid var(--border);
+    margin-bottom:   12px;
+    font-family:     var(--font-pixel);
+    font-size:       10px;
+    letter-spacing:  1px;
+    color:           var(--sage);
+}
+
+.game-over-window-bar .panel-dots { display: none; }
+
+.game-over-text {
+    font-family:    var(--font-pixel);
+    font-size:      72px;
+    color:          var(--dark);
+    letter-spacing: 5px;
+    line-height:    1;
+    text-shadow:
+         3px  0   var(--white),
+        -3px  0   var(--white),
+         0    3px var(--white),
+         0   -3px var(--white),
+         0    6px var(--dark-60);
+    animation: game-over-glitch 3s steps(1) infinite;
+}
+
+@keyframes game-over-glitch {
+    0%, 88%, 100% { transform: translateX(0);   color: var(--dark); }
+    90%           { transform: translateX(-3px); color: var(--sage); }
+    92%           { transform: translateX(3px);  color: var(--dark-60); }
+    94%           { transform: translateX(0);    color: var(--dark); }
+}
+
+.final-winner {
+    font-family:    var(--font-pixel);
+    font-size:      20px;
+    color:          var(--dark);
+    letter-spacing: 2px;
+}
+
+/* RESTART BUTTON */
+.restart-btn {
+    font-family:    var(--font-pixel);
+    font-size:      16px;
+    letter-spacing: 3px;
+    padding:        12px 40px;
+    background:     var(--sage);
+    color:          var(--dark);
+    border:         var(--border-width) solid var(--border);
+    box-shadow:     none;
+    cursor:         pointer;
+    border-radius:  0;
+    text-transform: uppercase;
+    transition:     background 0.1s, color 0.1s;
+}
+
+.restart-btn:hover {
+    background: var(--dark);
+    color:      var(--sage);
+}
+
+.restart-btn:active {
+    background: var(--dark-60);
+    color:      var(--white);
+}
+
+.restart-btn:focus-visible {
+    outline:        3px solid var(--dark);
+    outline-offset: 2px;
+}
+
+
+/* --------------------------------------------------------------------------
+   22. UTILITIES
+   -------------------------------------------------------------------------- */
+
+.hidden {
+    display: none !important;
+}

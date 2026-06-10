@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cleanup Chaos</title>
+
+    <link rel="icon" href="favicon.png">
+
+    <!-- Pixel font -->
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap"
+    >
+
+    <!-- Styling -->
+    <link rel="stylesheet" href="default.css">
+
+    <!-- Behaviour -->
+    <script type="module" src="main.js"></script>
+
+</head>
+
+<body>
+
+<!-- Scanline overlay (decorative) -->
+<div class="scanlines"></div>
+
+<div class="game-container">
+
+    <!-- TITLE -->
+
+    <header>
+
+        <h1 class="game-title">
+            <span class="title-cleanup">CLEANUP</span>
+            <span class="title-chaos">CHAOS</span>
+        </h1>
+
+        <p class="title-sub">[ INSERT COIN TO PLAY ]</p>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="main-layout">
+
+        <!-- LEFT PANEL -->
+
+        <aside class="side-panel">
+
+            <!-- TURN -->
+
+            <section class="panel-box turn-box">
+
+                <div class="panel-titlebar">
+                    <span class="panel-title-text">// TURN</span>
+                    <span class="panel-dots">
+                        <span class="panel-dot"></span>
+                        <span class="panel-dot"></span>
+                    </span>
+                </div>
+
+                <p class="turn-player">
+                    MOM<span class="blink-cursor">_</span>
+                </p>
+
+            </section>
+
+            <!-- WARNING -->
+
+            <section class="panel-box warning-box">
+
+                <div class="panel-titlebar warning-titlebar">
+                    <span class="panel-title-text">!! WARNING !!</span>
+                    <span class="panel-dots">
+                        <span class="panel-dot dot-warn"></span>
+                        <span class="panel-dot dot-warn"></span>
+                    </span>
+                </div>
+
+                <p class="warning-text">
+                    Avoid messy tiles.
+                </p>
+
+            </section>
+
+            <!-- OBJECTIVE -->
+
+            <section class="panel-box objective-box">
+
+                <div class="panel-titlebar">
+                    <span class="panel-title-text">// OBJECTIVE</span>
+                    <span class="panel-dots">
+                        <span class="panel-dot"></span>
+                        <span class="panel-dot"></span>
+                    </span>
+                </div>
+
+                <p class="objective-item">
+                    <span class="obj-tag mom-tag">MOM</span>
+                    Build all 5 castles
+                </p>
+
+                <p class="objective-item">
+                    <span class="obj-tag baby-tag">BABY</span>
+                    Collapse all 5 castles
+                </p>
+
+            </section>
+
+            <!-- MOM PROGRESS -->
+
+            <section class="panel-box streak-box">
+
+                <div class="panel-titlebar">
+                    <span class="panel-title-text">// MOM</span>
+                    <span class="panel-dots">
+                        <span class="panel-dot dot-mom"></span>
+                        <span class="panel-dot dot-mom"></span>
+                    </span>
+                </div>
+
+                <div class="streak-top">
+
+                    <img
+                        src="assets/mom.png"
+                        class="streak-character"
+                        alt="Mom character"
+                    >
+
+                    <div class="streak-info">
+
+                        <div class="heart-container mom-hearts"></div>
+
+                        <p class="streak-number mom-score">0/5</p>
+
+                    </div>
+
+                </div>
+
+                <div class="streak-label">CASTLES BUILT</div>
+
+                <div class="streak-bar">
+                    <div class="streak-fill mom-fill"></div>
+                </div>
+
+            </section>
+
+        </aside>
+
+
+        <!-- BOARD -->
+
+        <section class="center-area">
+
+            <div class="board-frame">
+
+                <div class="board-frame-top">
+                    <span class="frame-label">GAME BOARD</span>
+                    <span class="frame-moves">MOVES: <span class="move-counter">0</span></span>
+                </div>
+
+                <div id="game-board" class="board"></div>
+
+            </div>
+
+            <p class="control-guide">
+                <span class="key-chip">CLICK</span>
+                move to adjacent tile
+                &nbsp;&nbsp;
+                <span class="key-chip">↑↓←→</span>
+                arrow keys
+            </p>
+
+        </section>
+
+
+        <!-- RIGHT PANEL -->
+
+        <aside class="side-panel">
+
+            <!-- BLOCK GUIDE -->
+
+            <section class="panel-box guide-box">
+
+                <div class="panel-titlebar">
+                    <span class="panel-title-text">// BLOCKS</span>
+                    <span class="panel-dots">
+                        <span class="panel-dot"></span>
+                        <span class="panel-dot"></span>
+                    </span>
+                </div>
+
+                <!-- NEUTRAL -->
+
+                <div class="guide-item">
+
+                    <img
+                        src="assets/basic.png"
+                        class="guide-icon"
+                        alt="Neutral tile icon"
+                    >
+
+                    <div class="guide-text">
+
+                        <p class="guide-name neutral-text">NEUTRAL</p>
+
+                        <p class="guide-desc">
+                            Safe for both.<br>
+                            No special effect.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- CLEAN -->
+
+                <div class="guide-item">
+
+                    <img
+                        src="assets/clean.png"
+                        class="guide-icon"
+                        alt="Clean tile icon"
+                    >
+
+                    <div class="guide-text">
+
+                        <p class="guide-name clean-text">CLEAN</p>
+
+                        <p class="guide-desc">
+                            Mom cleaned it.<br>
+                            Baby cannot step here.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- MESSY -->
+
+                <div class="guide-item">
+
+                    <img
+                        src="assets/messy.png"
+                        class="guide-icon"
+                        alt="Messy tile icon"
+                    >
+
+                    <div class="guide-text">
+
+                        <p class="guide-name messy-text">MESSY</p>
+
+                        <p class="guide-desc">
+                            Baby made it messy.<br>
+                            Mom cannot step here.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- BABY PROGRESS -->
+
+            <section class="panel-box streak-box">
+
+                <div class="panel-titlebar">
+                    <span class="panel-title-text">// BABY</span>
+                    <span class="panel-dots">
+                        <span class="panel-dot dot-baby"></span>
+                        <span class="panel-dot dot-baby"></span>
+                    </span>
+                </div>
+
+                <div class="streak-top">
+
+                    <img
+                        src="assets/baby.png"
+                        class="streak-character"
+                        alt="Baby character"
+                    >
+
+                    <div class="streak-info">
+
+                        <div class="heart-container baby-hearts"></div>
+
+                        <p class="streak-number baby-score">0/5</p>
+
+                    </div>
+
+                </div>
+
+                <div class="streak-label">CASTLES COLLAPSED</div>
+
+                <div class="streak-bar">
+                    <div class="streak-fill baby-fill"></div>
+                </div>
+
+            </section>
+
+        </aside>
+
+    </main>
+
+
+    <!-- ROUND RESULT -->
+
+    <footer class="bottom-ui">
+
+        <div class="status-bar">
+            <span class="status-dot-active"></span>
+            <p class="game-status"></p>
+            <span class="status-dot-active"></span>
+        </div>
+
+    </footer>
+
+</div>
+
+
+<!-- GAME OVER OVERLAY -->
+
+<div class="game-over-overlay hidden">
+
+    <div class="game-over-content">
+
+        <div class="game-over-window-bar">
+            <span>SYSTEM.EXE</span>
+            <span class="panel-dots">
+                <span class="panel-dot"></span>
+                <span class="panel-dot"></span>
+            </span>
+        </div>
+
+        <h2 class="game-over-text">GAME OVER</h2>
+
+        <p class="final-winner"></p>
+
+        <button class="restart-btn" type="button">
+            &#9654; PLAY AGAIN
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+</html>
