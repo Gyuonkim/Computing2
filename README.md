@@ -1,24 +1,7 @@
 # Cleanup Chaos
 
 A two-player turn-based board game built as a web application.
-MOM and BABY compete on a 5×5 grid — MOM tries to build all the castles, BABY tries to collapse them.
-
----
-
-## Running the project
-
-### Play the game
-
-Open `web-app/index.html` in a browser. No build step or server required.
-
-### Run the tests
-
-Requires Node.js 18 or later.
-
-```bash
-cd web-app
-npm test
-```
+MOM and BABY compete on a 5×5 grid — MOM tries to build all the lego castles, BABY tries to collapse them.
 
 ---
 
@@ -31,7 +14,9 @@ npm test
 | MOM | Top-left (0, 0) | Build all 5 castles |
 | BABY | Bottom-right (4, 4) | Collapse all 5 castles |
 
-Each player starts with **3 lives**, displayed as hearts (❤️❤️❤️). Losing a round costs one life. The first player to take all 3 of their opponent's lives wins the match — so you need to **win 3 rounds** to win overall.
+Lego tiles are generated at random positions each turn.
+
+Each player starts with **3 lives**, displayed as hearts (❤️❤️❤️). Losing a round costs one life — so you need to **win 3 rounds** to win overall.
 
 ### Movement
 
